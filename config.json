@@ -1,0 +1,9 @@
+{
+  "botName": "HobbyBot",
+  "botDescription": "Your fun finance assistant for hobbies 🎮🎵📚",
+  "avatarUrl": "clowncat.png", 
+  "themeMode": "light",
+  "fontFamily": "Inter",
+  "headerBackgroundColor": "#10b981",
+  "layoutWidth": "wide"
+}

@@ -88,7 +88,7 @@
 
     .card-bar {
       display: flex;
-      gap: -10px;
+      gap: 1rem;
       align-items: center;
     }
 
@@ -101,28 +101,49 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.3s;
       position: relative;
-      margin-left: -15px;
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
       text-decoration: none;
       color: white;
       font-size: 0.75rem;
       font-weight: 500;
       text-align: center;
       padding: 0.5rem;
+      overflow: hidden;
+      transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
     }
 
-    .nav-card:first-child {
-      margin-left: 0;
+    .nav-card-span {
+      position: relative;
+      z-index: 2;
+      transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .nav-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+      );
+      transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
     }
 
     .nav-card:hover {
-      transform: scale(1.05) translateX(-10px);
       background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.5);
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-      z-index: 10;
+    }
+
+    .nav-card:hover::before {
+      left: 100%;
     }
 
     .main-content {
@@ -139,6 +160,7 @@
       flex-direction: column;
       align-items: center;
       gap: 1.5rem;
+      position: relative;
     }
 
     .chatbot-title {
@@ -165,12 +187,49 @@
       color: #9ca3af;
     }
 
+    .iframe-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .iframe-wrapper::before {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: -15px;
+      right: -15px;
+      bottom: -15px;
+      background: linear-gradient(
+        135deg,
+        rgba(9, 179, 222, 0.6) 0%,
+        rgba(87, 199, 133, 0.55) 50%,
+        rgba(139, 237, 83, 0.5) 100%
+      );
+      border-radius: 22px;
+      filter: blur(15px);
+      z-index: -1;
+      opacity: 0.9;
+    }
+
+    body.dark-mode .iframe-wrapper::before {
+      background: linear-gradient(
+        135deg,
+        rgba(9, 179, 222, 0.5) 0%,
+        rgba(87, 199, 133, 0.45) 50%,
+        rgba(139, 237, 83, 0.4) 100%
+      );
+      opacity: 0.9;
+      filter: blur(18px);
+    }
+
     iframe#botpress-iframe {
       width: 500px;
       height: 500px;
       border: none;
       border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 1;
     }
 
     @media (max-width: 768px) {
@@ -192,17 +251,14 @@
 
       .card-bar {
         gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
       }
 
       .nav-card {
-        margin-left: 0;
         width: 90px;
         height: 40px;
         font-size: 0.7rem;
-      }
-
-      .nav-card:hover {
-        transform: scale(1.05) translateY(-5px);
       }
 
       .main-content {
@@ -247,35 +303,39 @@
     }
 
     .nav-card:nth-child(1) {
-      background: rgba(239, 68, 68, 0.15);
+      border-color: #6abaa2;
     }
 
     .nav-card:nth-child(2) {
-      background: rgba(59, 130, 246, 0.15);
+      border-color: #6abaa2;
     }
 
     .nav-card:nth-child(3) {
-      background: rgba(168, 85, 247, 0.15);
+      border-color: #6abaa2;
     }
 
     .nav-card:nth-child(4) {
-      background: rgba(245, 158, 11, 0.15);
+      border-color: #6abaa2;
     }
 
     .nav-card:nth-child(1):hover {
-      background: rgba(239, 68, 68, 0.25);
+      background: #1a7b74;
+      border-color: #1bb3a8af;
     }
 
     .nav-card:nth-child(2):hover {
-      background: rgba(59, 130, 246, 0.25);
+      background: #1a7b74;
+      border-color: #1bb3a8af;
     }
 
     .nav-card:nth-child(3):hover {
-      background: rgba(168, 85, 247, 0.25);
+      background: #1a7b74;
+      border-color: #1bb3a8af;
     }
 
     .nav-card:nth-child(4):hover {
-      background: rgba(245, 158, 11, 0.25);
+      background: #1a7b74;
+      border-color: #1bb3a8af;
     }
   </style>
 </head>
@@ -288,10 +348,18 @@
       <div class="moon-icon" onclick="toggleDarkMode()"></div>
     </div>
     <div class="card-bar">
-      <a href="#phone" class="nav-card">Phone Subscription</a>
-      <a href="#shopping" class="nav-card">Personal Care & Shopping</a>
-      <a href="#food" class="nav-card">Food</a>
-      <a href="#transport" class="nav-card">Transport</a>
+      <a href="https://cheap-food-three.vercel.app/" target="_blank" class="nav-card">
+        <span class="nav-card-span">Food</span>
+      </a>
+      <a href="https://julianwyh.github.io/SmartSave_PhoneSub/" target="_blank" class="nav-card">
+        <span class="nav-card-span">Phone Subscription</span>
+      </a>
+      <a href="https://23016353-sherval.github.io/Faremate/" target="_blank" class="nav-card">
+        <span class="nav-card-span">Transport</span>
+      </a>
+      <a href="https://23023133-pehzhengda.github.io/smartsave-personal-care/personal-care-shopping.html" target="_blank" class="nav-card">
+        <span class="nav-card-span">Personal Care & Shopping</span>
+      </a>
     </div>
   </nav>
 
@@ -304,10 +372,12 @@
         Ask questions about saving money, managing expenses, or finding the best deals.
       </p>
 
-      <iframe id="botpress-iframe"
-        src="https://cdn.botpress.cloud/webchat/v3.0/shareable.html?configUrl=https://files.bpcontent.cloud/2025/07/05/21/20250705210815-6NNOS9CA.json"
-        allow="clipboard-write">
-      </iframe>
+      <div class="iframe-wrapper">
+        <iframe id="botpress-iframe"
+          src="https://cdn.botpress.cloud/webchat/v3.0/shareable.html?configUrl=https://files.bpcontent.cloud/2025/07/05/21/20250705210815-6NNOS9CA.json"
+          allow="clipboard-write">
+        </iframe>
+      </div>
     </div>
   </main>
 
